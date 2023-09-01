@@ -6,6 +6,11 @@ create table if not exists tipo (
     nome varchar(60),
     primary key (id_tipo)
 );
+create table if not exists pais (
+	id_pais int not null auto_increment,
+    nome varchar(60),
+    primary key (id_pais)
+);
 create table if not exists programatv (
 	id_programa int not null auto_increment,
     titulo varchar(60),
@@ -24,7 +29,9 @@ create table if not exists contatos (
 create table if not exists ator (
 	id_ator int not null auto_increment,
     nome varchar(60),
-    primary key (id_ator)
+    fk_id_pais int not null,
+    primary key (id_ator),
+    foreign key (fk_id_pais) references pais(id_pais)
 );
 create table if not exists genero (
 	id_genero int not null auto_increment,
@@ -40,11 +47,11 @@ create table if not exists prog_informacoes (
 	id_prog_inf int not null auto_increment,
     titulo_original varchar(60),
     sinopse text,
-    primary key (id_prog_inf));
-create table if not exists pais (
-	id_pais int not null auto_increment,
-    nome varchar(60),
-    primary key (id_pais)
+    fk_id_pais int not null,
+    fk_id_programa int not null,
+    primary key (id_prog_inf),
+    foreign key (fk_id_pais) references pais(id_pais),
+	foreign key (fk_id_programa) references programatv(id_programa)
 );
 -- RELACIONAMENTOS N:N:
 	-- ProgramaTV e Contatos
